@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const connectToDataBase = () => {
-    mongoose.connect(`${process.env.DB_CONNECTION_STRING}ChatAppDB`)
+    mongoose.connect(`${process.env.DB_CONNECTION_STRING}StackNotesDB`)
     .then(() => {
         console.log('Database connection sucessfull');
     })
