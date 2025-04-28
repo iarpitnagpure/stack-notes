@@ -20,9 +20,6 @@
     "babel-loader": "^10.0.0",
     "css-loader": "^7.1.2",
     "html-webpack-plugin": "^5.6.3",
-    "install": "^0.13.0",
-    "npm": "^11.3.0",
-    "postcss": "^8.5.3",
     "postcss-loader": "^8.1.1",
     "style-loader": "^4.0.0",
     "tailwindcss": "^4.1.4",
@@ -31,6 +28,7 @@
     "webpack-dev-server": "^5.2.1"
   },
   "dependencies": {
+    "@radix-ui/themes": "^3.2.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router": "^7.5.2"
