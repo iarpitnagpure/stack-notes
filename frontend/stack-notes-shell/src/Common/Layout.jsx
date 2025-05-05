@@ -1,6 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
 import { Button, Tooltip } from "@radix-ui/themes";
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
@@ -21,6 +22,18 @@ const Layout = () => {
             </div>
             <main>
                 <Outlet />
+                <ToastContainer
+                    position="top-center"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick={false}
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="dark"
+                />
             </main>
         </div>
     );
