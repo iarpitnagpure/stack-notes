@@ -1,5 +1,9 @@
+import webpack from "webpack";
 import path from "path";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export default {
     entry: "./src/index.js",
@@ -9,7 +13,7 @@ export default {
         publicPath: "/",
     },
     mode: "development",
-    devtool: "eval-source-map", 
+    devtool: "eval-source-map",
     devServer: {
         port: 3000,
         historyApiFallback: true,
@@ -31,6 +35,9 @@ export default {
     plugins: [
         new HtmlWebpackPlugin({
             template: "./public/index.html",
+        }),
+        new webpack.DefinePlugin({
+            "process.env.STACK_NOTES_API_URL": JSON.stringify(process.env.STACK_NOTES_API_URL),
         }),
     ],
     resolve: {

@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { Box, Button, Card, TextField } from "@radix-ui/themes";
+import { Box, Button, Card, Spinner, TextField } from "@radix-ui/themes";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../Slices/AuthSlice";
 
 const Login = () => {
     const [loginInfo, setLoginInfo] = useState({
         username: "",
         password: "",
     });
+    const { isUserAuthenticated, isLoading, isError, errorMessage } = useSelector(
+        (state) => state.auth
+    );
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleLoginInfoChange = (value, field) => {
         setLoginInfo((prev) => ({
@@ -20,10 +26,24 @@ const Login = () => {
     const handleLoginClick = () => {
         const { username, password } = loginInfo;
         if (!username || !password) {
-            toast.error('Field username and password is required');
+            toast.error("Field username and password is required");
             return;
+        } else {
+            dispatch(loginUser(username, password));
         }
     };
+
+    useEffect(() => {
+        if (isError && errorMessage) {
+            toast.error(errorMessage);
+        }
+    }, [isError, errorMessage]);
+
+    useEffect(() => {
+        if (isUserAuthenticated) {
+            navigate("/dashboard");
+        }
+    }, [isUserAuthenticated]);
 
     return (
         <div className="flex justify-center items-center h-screen">
@@ -61,6 +81,7 @@ const Login = () => {
                             <div className="mb-3">
                                 <Button variant="solid" size="1" onClick={handleLoginClick}>
                                     Sign in
+                                    {isLoading && <Spinner />}
                                 </Button>
                             </div>
                         </div>
