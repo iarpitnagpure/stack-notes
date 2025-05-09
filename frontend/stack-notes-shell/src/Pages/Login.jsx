@@ -29,7 +29,7 @@ const Login = () => {
             toast.error("Field username and password is required");
             return;
         } else {
-            dispatch(loginUser(username, password));
+            dispatch(loginUser({ ...loginInfo }));
         }
     };
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import {
     Box,
@@ -6,9 +6,12 @@ import {
     Card,
     Checkbox,
     RadioGroup,
+    Spinner,
     TextField,
 } from "@radix-ui/themes";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { signUpUser } from "../Slices/AuthSlice";
 
 const Signup = () => {
     const [signupInfo, setSignupInfo] = useState({
@@ -16,9 +19,13 @@ const Signup = () => {
         username: "",
         password: "",
         gender: "male",
-        useRandomAvatar: true,
+        randomAvatar: true,
     });
     const navigate = useNavigate();
+    const { isUserAuthenticated, isLoading, isError, errorMessage } = useSelector(
+        (state) => state.auth
+    );
+    const dispatch = useDispatch();
 
     const handleSignupInfoChange = (value, field) => {
         setSignupInfo((prev) => ({
@@ -32,8 +39,22 @@ const Signup = () => {
         if (!name || !username || !password) {
             toast.error("Pleae enter all required fields");
             return;
+        } else {
+            dispatch(signUpUser({ ...signupInfo }));
         }
     };
+
+    useEffect(() => {
+        if (isError && errorMessage) {
+            toast.error(errorMessage);
+        }
+    }, [isError, errorMessage]);
+
+    useEffect(() => {
+        if (isUserAuthenticated) {
+            navigate("/dashboard");
+        }
+    }, [isUserAuthenticated]);
 
     return (
         <div className="flex justify-center items-center h-screen">
@@ -85,7 +106,7 @@ const Signup = () => {
                                 size="2"
                                 defaultChecked
                                 onCheckedChange={(value) =>
-                                    handleSignupInfoChange(value, "useRandomAvatar")
+                                    handleSignupInfoChange(value, "randomAvatar")
                                 }
                             />
                             <div className="text-xs pl-1.5">Use random avatar</div>
@@ -103,6 +124,7 @@ const Signup = () => {
                             <div className="mb-3">
                                 <Button variant="solid" size="1" onClick={handleSignupClick}>
                                     Sign up
+                                    {isLoading && <Spinner />}
                                 </Button>
                             </div>
                         </div>
