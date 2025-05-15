@@ -22,7 +22,7 @@ const Signup = () => {
         randomAvatar: true,
     });
     const navigate = useNavigate();
-    const { isUserAuthenticated, isLoading, isError, errorMessage } = useSelector(
+    const { isUserAuthenticated, isLoading, isError, errorMessage, userInfo } = useSelector(
         (state) => state.auth
     );
     const dispatch = useDispatch();
@@ -52,6 +52,7 @@ const Signup = () => {
 
     useEffect(() => {
         if (isUserAuthenticated) {
+            sessionStorage.setItem('loggedInUser', JSON.stringify(userInfo));
             navigate("/dashboard");
         }
     }, [isUserAuthenticated]);

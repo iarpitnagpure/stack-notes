@@ -10,7 +10,7 @@ const Login = () => {
         username: "",
         password: "",
     });
-    const { isUserAuthenticated, isLoading, isError, errorMessage } = useSelector(
+    const { isUserAuthenticated, isLoading, isError, errorMessage, userInfo } = useSelector(
         (state) => state.auth
     );
     const navigate = useNavigate();
@@ -41,6 +41,7 @@ const Login = () => {
 
     useEffect(() => {
         if (isUserAuthenticated) {
+            sessionStorage.setItem('loggedInUser', JSON.stringify(userInfo));
             navigate("/dashboard");
         }
     }, [isUserAuthenticated]);

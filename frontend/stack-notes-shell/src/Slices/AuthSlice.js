@@ -50,10 +50,32 @@ export const signUpUser = createAsyncThunk(
     }
 );
 
+export const logoutUser = createAsyncThunk(
+    "auth/logout",
+    async () => {
+        const response = await fetch(
+            `${process.env.STACK_NOTES_API_URL}/api/auth/logout`,
+            {
+                credentials: "include",
+                method: "GET",
+                headers: {
+                    ["content-type"]: "application/json",
+                }
+            }
+        );
+        return response.json();
+    }
+);
+
 const authSlice = createSlice({
     name: "auth",
     initialState,
-    reducers: {},
+    reducers: {
+        setUserAuth: (state, action) => {
+            state.isUserAuthenticated = true;
+            state.userInfo = action.payload;
+        },
+    },
     extraReducers(builder) {
         builder
             .addCase(loginUser.pending, (state) => {
@@ -70,7 +92,7 @@ const authSlice = createSlice({
             })
             .addCase(loginUser.rejected, (state) => {
                 state.isLoading = false;
-            }) 
+            })
             .addCase(signUpUser.pending, (state) => {
                 state.isLoading = true;
             })
@@ -85,8 +107,28 @@ const authSlice = createSlice({
             })
             .addCase(signUpUser.rejected, (state) => {
                 state.isLoading = false;
+            })
+            .addCase(logoutUser.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(logoutUser.fulfilled, (state, action) => {
+                state.isLoading = false;
+                if (action.payload.isUserLoggedOut) {
+                    state.isUserAuthenticated = false;
+                    state.isLoading = false;
+                    state.isError = false;
+                    state.errorMessage = '';
+                    state.userInfo = null;
+                }
+            })
+            .addCase(logoutUser.rejected, (state) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.errorMessage = 'Something went wrong, Please try again later';
             });
     },
 });
+
+export const { setUserAuth } = authSlice.actions;
 
 export default authSlice.reducer;
