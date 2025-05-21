@@ -11,7 +11,7 @@ const DashboardComponent = lazy(() => import('./Pages/Dashboard'));
 
 const App = () => {
     const { theme } = useSelector((state) => state.theme);
-    
+
     return (
         <Theme appearance={theme}>
             <Suspense fallback={<Loader />}>

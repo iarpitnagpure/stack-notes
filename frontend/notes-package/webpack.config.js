@@ -1,4 +1,3 @@
-// webpack.config.js
 import webpack from "webpack";
 import path from "path";
 import HtmlWebpackPlugin from "html-webpack-plugin";
@@ -16,7 +15,7 @@ export default {
     mode: "development",
     devtool: "eval-source-map",
     devServer: {
-        port: 3000,
+        port: 4000,
         historyApiFallback: true,
         open: true,
     },
@@ -41,21 +40,15 @@ export default {
             "process.env.STACK_NOTES_API_URL": JSON.stringify(process.env.STACK_NOTES_API_URL),
         }),
         new webpack.container.ModuleFederationPlugin({
-            name: "host",
-            remotes: {
-                stacknotes: "stacknotes@http://localhost:4000/remoteEntry.js",
+            name: "stacknotes",
+            filename: "remoteEntry.js",
+            exposes: {
+                "./NoteApp": "./src/App", // Export component, Multiple export also allowedd
             },
-            shared: {
-                react: {
-                    singleton: true,
-                    requiredVersion: false,
-                },
-                'react-dom': {
-                    singleton: true,
-                    requiredVersion: false,
-                },
-            }
-
+            shared: {                     // Add shared library
+                react: { singleton: true, requiredVersion: false },
+                "react-dom": { singleton: true, requiredVersion: false },
+            },
         }),
     ],
     resolve: {

@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { lazy, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserAuth } from "../Slices/AuthSlice";
+const NoteApp = lazy(() => import("stacknotes/NoteApp"));
 
 const Dashboard = () => {
     const { isUserAuthenticated } = useSelector(state => state.auth);
@@ -29,6 +30,7 @@ const Dashboard = () => {
     }, [isUserAuthenticated]);
 
     return <div>
+        <NoteApp />
     </div>
 };
 

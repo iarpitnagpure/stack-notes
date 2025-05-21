@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy } from "react";
 import { Outlet } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
