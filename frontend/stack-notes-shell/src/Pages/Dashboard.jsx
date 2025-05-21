@@ -1,7 +1,8 @@
-import React, { lazy, useEffect } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserAuth } from "../Slices/AuthSlice";
+import Loader from "../Common/Loader";
 const NoteApp = lazy(() => import("stacknotes/NoteApp"));
 
 const Dashboard = () => {
@@ -22,16 +23,16 @@ const Dashboard = () => {
     };
 
     const redirectToLogin = () => {
-       navigate('/');
+        navigate('/');
     };
 
     useEffect(() => {
         verifyUserAuthentication();
     }, [isUserAuthenticated]);
 
-    return <div>
-        <NoteApp />
-    </div>
+    return <Suspense fallback={<Loader />}>
+        <NoteApp isUserAuthenticated={isUserAuthenticated} />
+    </Suspense>
 };
 
 export default Dashboard;
