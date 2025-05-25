@@ -54,8 +54,20 @@ export default {
                     singleton: true,
                     requiredVersion: false,
                 },
+                "@radix-ui/themes": {
+                    singleton: true,
+                    requiredVersion: false,
+                    version: "3.2.1"
+                },
+                "@mui/icons-material": {
+                    singleton: true,
+                    requiredVersion: false
+                },
+                "@mui/material": {
+                    singleton: true,
+                    requiredVersion: false,
+                },
             }
-
         }),
     ],
     resolve: {

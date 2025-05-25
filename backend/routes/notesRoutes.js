@@ -10,6 +10,6 @@ const noteRouter = Router();
 noteRouter.get('/getNotes', authenticationMiddleware, getNotesController);
 noteRouter.post('/addNote', authenticationMiddleware, addNoteController);
 noteRouter.patch('/updateNote', authenticationMiddleware, updateNoteController);
-noteRouter.patch('/deleteNote', authenticationMiddleware, deleteNoteController);
+noteRouter.post('/deleteNote', authenticationMiddleware, deleteNoteController);
 
 export default noteRouter;

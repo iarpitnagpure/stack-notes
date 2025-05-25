@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getNotes } from "../Slices/NotesSlice";
+import { deleteNote, getNotes } from "../Slices/NotesSlice";
+import Note from "./Note";
 
 const NotesContainer = ({ isUserAuthenticated = true }) => {
     const { notes } = useSelector((state) => state.notes);
-    console.log('Notes--->', notes);
+    console.log("Notes--->", notes);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -13,10 +14,25 @@ const NotesContainer = ({ isUserAuthenticated = true }) => {
         }
     }, [isUserAuthenticated]);
 
+    const handleDeleteClick = (id) => {
+        dispatch(deleteNote(id));
+    };
+
     return (
-        <div className="m-5">Notes package Test</div>
+        <div className="m-5 flex justify-between flex-wrap">
+            {notes.map((note, index) => (
+                <Note
+                    key={index}
+                    title={note?.title}
+                    problem={note?.problem}
+                    solution={note?.solution}
+                    tags={note?.tags}
+                    references={note?.references}
+                    handleDelete={() => handleDeleteClick(note?._id)}
+                />
+            ))}
+        </div>
     );
 };
 
 export default NotesContainer;
-
