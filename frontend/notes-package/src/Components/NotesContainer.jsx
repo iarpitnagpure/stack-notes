@@ -20,7 +20,7 @@ const NotesContainer = ({ isUserAuthenticated = true }) => {
 
     return (
         <div className="m-5 flex justify-between flex-wrap">
-            {notes.map((note, index) => (
+            {notes?.map((note, index) => (
                 <Note
                     key={index}
                     title={note?.title}
