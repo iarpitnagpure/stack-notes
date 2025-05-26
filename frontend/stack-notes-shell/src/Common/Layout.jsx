@@ -20,7 +20,7 @@ const Layout = () => {
 
     return (
         <div className="h-screen overflow-hidden p-2">
-            <div className="flex justify-between items-center px-8 py-3">
+            <div className="flex justify-between absolute top-0 left-0 w-screen items-center px-8 py-5">
                 <div className="text-2xl font-semibold cursor-pointer">Stack Notes</div>
                 <div className="flex justify-end items-center absolute right-0 px-8">
                     {isUserAuthenticated ? (
