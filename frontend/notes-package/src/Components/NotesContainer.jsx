@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteNote, getNotes } from "../Slices/NotesSlice";
 import Note from "./Note";
-import { Button } from "@radix-ui/themes";
 import AddNote from "./AddNote";
 
 const NotesContainer = ({ isUserAuthenticated = true }) => {
+    const [isNoteEditMode, setIsNoteEditMode] = useState(false);
+    const [editNoteInfo, setEditNoteInfo] = useState(null);
     const { notes } = useSelector((state) => state.notes);
     const dispatch = useDispatch();
 
@@ -19,10 +20,15 @@ const NotesContainer = ({ isUserAuthenticated = true }) => {
         dispatch(deleteNote(id));
     };
 
+    const handleEditClick = (note) => {
+        setIsNoteEditMode(true);
+        setEditNoteInfo(note);
+    };
+
     return (
         <div className="flex flex-col mt-19 px-6">
-            <AddNote />
-            <div className="m-5 flex justify-between flex-wrap">
+            <AddNote isEditMode={isNoteEditMode} editNoteInfo={editNoteInfo} />
+            <div className="flex justify-start flex-wrap">
                 {notes?.map((note, index) => (
                     <Note
                         key={index}
@@ -32,6 +38,7 @@ const NotesContainer = ({ isUserAuthenticated = true }) => {
                         tags={note?.tags}
                         references={note?.references}
                         handleDelete={() => handleDeleteClick(note?._id)}
+                        handleEdit={() => handleEditClick(note)}
                     />
                 ))}
             </div>
