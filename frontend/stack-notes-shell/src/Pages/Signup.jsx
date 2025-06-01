@@ -22,9 +22,8 @@ const Signup = () => {
         randomAvatar: true,
     });
     const navigate = useNavigate();
-    const { isUserAuthenticated, isLoading, isError, errorMessage, userInfo } = useSelector(
-        (state) => state.auth
-    );
+    const { isUserAuthenticated, isLoading, isError, errorMessage, userInfo } =
+        useSelector((state) => state.auth);
     const dispatch = useDispatch();
 
     const handleSignupInfoChange = (value, field) => {
@@ -52,7 +51,7 @@ const Signup = () => {
 
     useEffect(() => {
         if (isUserAuthenticated) {
-            sessionStorage.setItem('loggedInUser', JSON.stringify(userInfo));
+            sessionStorage.setItem("loggedInUser", JSON.stringify(userInfo));
             navigate("/dashboard");
         }
     }, [isUserAuthenticated]);
@@ -63,13 +62,17 @@ const Signup = () => {
                 <Card>
                     <div className="p-2">
                         <div className="font-bold text-2xl mb-5">Create an account</div>
-                        <div className="font-semibold text-xs mb-1">Name</div>
+                        <div className="font-semibold text-xs mb-1">
+                            Name<span className="text-red-500 pl-0.5">*</span>
+                        </div>
                         <TextField.Root
                             radius="medium"
                             placeholder="Enter your name"
                             onChange={(e) => handleSignupInfoChange(e.target.value, "name")}
                         />
-                        <div className="font-semibold text-xs mb-1 mt-4">Username</div>
+                        <div className="font-semibold text-xs mb-1 mt-4">
+                            Username<span className="text-red-500 pl-0.5">*</span>
+                        </div>
                         <TextField.Root
                             radius="medium"
                             placeholder="Enter your username"
@@ -77,7 +80,9 @@ const Signup = () => {
                                 handleSignupInfoChange(e.target.value, "username")
                             }
                         />
-                        <div className="font-semibold text-xs mb-1 mt-4">Password</div>
+                        <div className="font-semibold text-xs mb-1 mt-4">
+                            Password<span className="text-red-500 pl-0.5">*</span>
+                        </div>
                         <TextField.Root
                             radius="medium"
                             placeholder="Enter your password"

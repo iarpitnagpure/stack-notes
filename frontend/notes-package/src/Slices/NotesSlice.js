@@ -89,9 +89,9 @@ const notesSlice = createSlice({
             })
             .addCase(addNote.fulfilled, (state, action) => {
                 state.isLoading = false;
-                const { newNote, isError, error } = action.payload;
-                if (newNote) {
-                    state.notes.push(newNote);
+                const { note, isError, error } = action.payload;
+                if (note) {
+                    state.notes.push(note);
                 }
                 if (isError) {
                     state.isError = true;

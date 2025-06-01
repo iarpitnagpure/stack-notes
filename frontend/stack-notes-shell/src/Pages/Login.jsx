@@ -10,9 +10,8 @@ const Login = () => {
         username: "",
         password: "",
     });
-    const { isUserAuthenticated, isLoading, isError, errorMessage, userInfo } = useSelector(
-        (state) => state.auth
-    );
+    const { isUserAuthenticated, isLoading, isError, errorMessage, userInfo } =
+        useSelector((state) => state.auth);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -41,7 +40,7 @@ const Login = () => {
 
     useEffect(() => {
         if (isUserAuthenticated) {
-            sessionStorage.setItem('loggedInUser', JSON.stringify(userInfo));
+            sessionStorage.setItem("loggedInUser", JSON.stringify(userInfo));
             navigate("/dashboard");
         }
     }, [isUserAuthenticated]);
@@ -52,7 +51,9 @@ const Login = () => {
                 <Card>
                     <div className="p-2">
                         <div className="font-bold text-2xl mb-5">Sign in</div>
-                        <div className="font-semibold text-xs mb-1">Username</div>
+                        <div className="font-semibold text-xs mb-1">
+                            Username<span className="text-red-500 pl-0.5">*</span>
+                        </div>
                         <TextField.Root
                             radius="medium"
                             placeholder="Enter your username"
@@ -60,7 +61,9 @@ const Login = () => {
                                 handleLoginInfoChange(e.target.value, "username")
                             }
                         />
-                        <div className="font-semibold text-xs mb-1 mt-4">Password</div>
+                        <div className="font-semibold text-xs mb-1 mt-4">
+                            Password<span className="text-red-500 pl-0.5">*</span>
+                        </div>
                         <TextField.Root
                             radius="medium"
                             placeholder="Enter your password"

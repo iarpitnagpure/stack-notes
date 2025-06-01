@@ -4,7 +4,7 @@ import { AlertDialog, Button, Flex, Link, TextField } from "@radix-ui/themes";
 import { addNote, updateNote } from "../Slices/NotesSlice";
 import { toast } from "react-toastify";
 
-const AddNote = ({ isEditMode, editNoteInfo }) => {
+const AddNote = ({ isEditMode, editNoteInfo, resetEditNoteInfo }) => {
     const [showDialog, setShowDialog] = useState(false);
     const [noteInfo, setNoteInfo] = useState({
         title: "",
@@ -87,6 +87,7 @@ const AddNote = ({ isEditMode, editNoteInfo }) => {
             dispatch(updateNote({ ...noteInfo, id: editNoteInfo._id }));
             setShowDialog(false);
             resetNoteInfo();
+            resetEditNoteInfo();
         } else {
             toast.error("Title and problem is required field");
         }

@@ -17,6 +17,7 @@ const addNoteController = async (req, res) => {
             res.status(201).send({
                 message: "Note Added",
                 note: {
+                    _id: newNote._id,
                     title: newNote.title,
                     problem: newNote.problem,
                     solution: newNote.solution || '',
