@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AlertDialog, Button, Flex, Link, TextField } from "@radix-ui/themes";
 import { addNote, updateNote } from "../Slices/NotesSlice";
+import { toast } from "react-toastify";
 
 const AddNote = ({ isEditMode, editNoteInfo }) => {
     const [showDialog, setShowDialog] = useState(false);
@@ -70,15 +71,25 @@ const AddNote = ({ isEditMode, editNoteInfo }) => {
     };
 
     const handleAddClick = () => {
-        dispatch(addNote(noteInfo));
-        setShowDialog(false);
-        resetNoteInfo();
+        const { title, problem } = noteInfo;
+        if (title && problem) {
+            dispatch(addNote(noteInfo));
+            setShowDialog(false);
+            resetNoteInfo();
+        } else {
+            toast.error("Title and problem is required field");
+        }
     };
 
     const handleUpdatedClick = () => {
-        dispatch(updateNote({...noteInfo, id: editNoteInfo._id}));
-        setShowDialog(false);
-        resetNoteInfo();
+        const { title, problem } = noteInfo;
+        if (title && problem) {
+            dispatch(updateNote({ ...noteInfo, id: editNoteInfo._id }));
+            setShowDialog(false);
+            resetNoteInfo();
+        } else {
+            toast.error("Title and problem is required field");
+        }
     };
 
     const resetNoteInfo = () => {

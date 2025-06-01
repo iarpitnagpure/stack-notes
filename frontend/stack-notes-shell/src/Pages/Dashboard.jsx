@@ -3,13 +3,17 @@ import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserAuth } from "../Slices/AuthSlice";
 import Loader from "../Common/Loader";
-const NoteApp = lazy(() => import("stacknotes/NoteApp"));
+import useThemeStore from "../Store/useThemeStore";
+const NoteApp = lazy(() => import("notesAppPackage/NoteApp"));
 
 const Dashboard = () => {
     const { isUserAuthenticated } = useSelector(state => state.auth);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
+    const { theme } = useThemeStore();
+
+    const navigate = useNavigate();
+    
     const verifyUserAuthentication = () => {
         const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
 
@@ -31,7 +35,7 @@ const Dashboard = () => {
     }, [isUserAuthenticated]);
 
     return <Suspense fallback={<Loader />}>
-        <NoteApp isUserAuthenticated={isUserAuthenticated} />
+        <NoteApp isUserAuthenticated={isUserAuthenticated} theme={theme} />
     </Suspense>
 };
 

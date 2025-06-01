@@ -10,46 +10,48 @@ const Note = ({
     tags,
     references,
     handleDelete,
-    handleEdit
+    handleEdit,
 }) => {
     return (
         <Box width="465px" height="200px" className="mt-3 mr-3">
             <Card className="h-full">
-                <Flex gap="3" align="center">
-                    <Box className="w-full">
-                        <div className="flex justify-between items-center">
-                            <Text as="div" size="3" weight="bold">
-                                {title}
-                            </Text>
-                            <div className="flex">
-                                <Button
-                                    variant="surface"
-                                    size="1"
-                                    className="!mr-1 !cursor-pointer"
-                                    onClick={handleEdit}
-                                >
-                                    <EditIcon sx={{ width: "20px", height: "18px" }} />
-                                </Button>
-                                <Button
-                                    variant="surface"
-                                    color="crimson"
-                                    size="1"
-                                    className="!cursor-pointer"
-                                    onClick={handleDelete}
-                                >
-                                    <DeleteOutlineOutlinedIcon
-                                        sx={{ width: "px", height: "18px" }}
-                                    />
-                                </Button>
+                <Flex gap="3" align="center" className="h-full">
+                    <Box className="w-full h-full">
+                        <div className="h-3/6">
+                            <div className="flex justify-between items-center">
+                                <Text as="div" size="3" weight="bold">
+                                    {title}
+                                </Text>
+                                <div className="flex">
+                                    <Button
+                                        variant="surface"
+                                        size="1"
+                                        className="!mr-1 !cursor-pointer"
+                                        onClick={handleEdit}
+                                    >
+                                        <EditIcon sx={{ width: "20px", height: "18px" }} />
+                                    </Button>
+                                    <Button
+                                        variant="surface"
+                                        color="crimson"
+                                        size="1"
+                                        className="!cursor-pointer"
+                                        onClick={handleDelete}
+                                    >
+                                        <DeleteOutlineOutlinedIcon
+                                            sx={{ width: "px", height: "18px" }}
+                                        />
+                                    </Button>
+                                </div>
                             </div>
+                            <Text as="div" size="2" weight="bold" className="pt-2">
+                                Problem: {problem}
+                            </Text>
+                            <Text as="div" size="2" color="gray" className="pt-1">
+                                Solution: {solution}
+                            </Text>
                         </div>
-                        <Text as="div" size="2" weight="bold" className="pt-2">
-                            Problem: {problem}
-                        </Text>
-                        <Text as="div" size="2" color="gray" className="pt-1">
-                            Solution: {solution}
-                        </Text>
-                        <div className="">
+                        <div className="h-3/6 flex flex-col justify-end mb-2">
                             {tags?.length ? (
                                 <div className="flex flex-wrap pt-2 items-center">
                                     <Text as="div" size="2" color="gray" className="pr-2">

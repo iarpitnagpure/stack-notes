@@ -5,11 +5,12 @@ import { ToastContainer } from "react-toastify";
 import { Avatar, Button, DropdownMenu, Tooltip } from "@radix-ui/themes";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
-import { toggleTheme } from "../Slices/ThemeSlice";
 import { logoutUser } from "../Slices/AuthSlice";
+import useThemeStore from "../Store/useThemeStore";
 
 const Layout = () => {
-    const { theme } = useSelector((state) => state.theme);
+    const { theme, toggleTheme } = useThemeStore();
+
     const { isUserAuthenticated, userInfo } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
 
@@ -64,7 +65,7 @@ const Layout = () => {
                                     </DropdownMenu.Sub>
                                     <DropdownMenu.Item
                                         shortcut={theme === "light" ? "Light Mode" : "Dark Mode"}
-                                        onClick={() => dispatch(toggleTheme())}
+                                        onClick={() => toggleTheme()}
                                     >
                                         Theme
                                     </DropdownMenu.Item>
@@ -75,7 +76,7 @@ const Layout = () => {
                         </Tooltip>
                     ) : (
                         <Tooltip content={theme === "light" ? "Dark Mode" : "Light Mode"}>
-                            <Button variant="ghost" onClick={() => dispatch(toggleTheme())}>
+                            <Button variant="ghost" onClick={() => toggleTheme()}>
                                 {theme === "light" ? (
                                     <DarkModeOutlinedIcon />
                                 ) : (

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
 import { deleteNote, getNotes } from "../Slices/NotesSlice";
 import Note from "./Note";
 import AddNote from "./AddNote";
@@ -7,6 +8,7 @@ import AddNote from "./AddNote";
 const NotesContainer = ({ isUserAuthenticated = true }) => {
     const [isNoteEditMode, setIsNoteEditMode] = useState(false);
     const [editNoteInfo, setEditNoteInfo] = useState(null);
+
     const { notes } = useSelector((state) => state.notes);
     const dispatch = useDispatch();
 
@@ -42,6 +44,18 @@ const NotesContainer = ({ isUserAuthenticated = true }) => {
                     />
                 ))}
             </div>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={true}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+            />
         </div>
     );
 };

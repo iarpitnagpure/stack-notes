@@ -40,7 +40,7 @@ export default {
             "process.env.STACK_NOTES_API_URL": JSON.stringify(process.env.STACK_NOTES_API_URL),
         }),
         new webpack.container.ModuleFederationPlugin({
-            name: "stacknotes",
+            name: "notePackage",
             filename: "remoteEntry.js",
             exposes: {
                 "./NoteApp": "./src/App", // Export component, Multiple export also allowedd
@@ -51,7 +51,7 @@ export default {
                 "@radix-ui/themes": {
                     singleton: true,
                     requiredVersion: false,
-                    version: "3.2.1"
+                    version: "3.2.1",
                 },
                 "@mui/icons-material": {
                     singleton: true,
@@ -61,6 +61,10 @@ export default {
                     singleton: true,
                     requiredVersion: false,
                 },
+                'react-toastify': {
+                    singleton: true,
+                    requiredVersion: false
+                }
             },
         }),
     ],

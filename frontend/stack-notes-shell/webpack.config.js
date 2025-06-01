@@ -10,7 +10,7 @@ export default {
     entry: "./src/index.js",
     output: {
         path: path.resolve("dist"),
-        filename: "bundle.js",
+        filename: "[name].bundle.js",
         publicPath: "auto",
     },
     mode: "development",
@@ -41,9 +41,9 @@ export default {
             "process.env.STACK_NOTES_API_URL": JSON.stringify(process.env.STACK_NOTES_API_URL),
         }),
         new webpack.container.ModuleFederationPlugin({
-            name: "host",
+            name: "notePackageShell",
             remotes: {
-                stacknotes: "stacknotes@http://localhost:4000/remoteEntry.js",
+                notesAppPackage: "notePackage@http://localhost:4000/remoteEntry.js",
             },
             shared: {
                 react: {
@@ -54,6 +54,7 @@ export default {
                     singleton: true,
                     requiredVersion: false,
                 },
+                zustand: { singleton: true },
                 "@radix-ui/themes": {
                     singleton: true,
                     requiredVersion: false,
@@ -67,6 +68,10 @@ export default {
                     singleton: true,
                     requiredVersion: false,
                 },
+                'react-toastify': {
+                    singleton: true,
+                    requiredVersion: false
+                }
             }
         }),
     ],
