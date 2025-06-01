@@ -4,7 +4,7 @@ StackNotes is a **full stack note-taking application** built using modern techno
 
 # StackNotes App Demo
 
-[Stack-Notes-Demo.webm](https://github.com/user-attachments/assets/44d1c39c-5a2b-47d9-a056-adcee3b4fe5b)
+https://github.com/user-attachments/assets/af382612-fdcd-4def-8f3a-dbcb29e19238
 
 
 ## Add Environment Variables
